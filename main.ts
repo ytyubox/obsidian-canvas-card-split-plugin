@@ -19,7 +19,6 @@ export default class MyPlugin extends Plugin {
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		// Register an event listener that runs whenever the layout changes
 		this.registerEvent(this.app.workspace.on('layout-change', () => {
-			console.log('layout-change')
 			this.addRightClickContextMenu();
 		}));
 		// This adds a simple command that can be triggered anywhere
@@ -52,33 +51,26 @@ export default class MyPlugin extends Plugin {
 		const canvasView = this.app.workspace.getActiveViewOfType(ItemView);
 		if (canvasView?.getViewType() !== 'canvas') return new Notice('Did not detect canvas');
 		const canvas = (canvasView as any).canvas;
-		const selection: Array<any> = Array.from(canvas.selection);
-		console.log(selection);
 
 
+		// Iterate through all canvas nodes (cards)
+		canvas.nodes.forEach((node: any) => {
+			const cardElement = node.el;
 
-		// Check if the current view is a Canvas view
-		if (activeLeaf && activeLeaf.view.getViewType() === 'canvas') {
+			// Ensure the right-click event listener is not added multiple times
+			if (!cardElement.dataset.hasContextMenu) {
+				cardElement.dataset.hasContextMenu = "true";
 
+				// Add the right-click event listener
+				cardElement.addEventListener('contextmenu', (event: MouseEvent) => {
+					event.preventDefault();  // Prevent the default browser context menu
 
-			// Iterate through all canvas nodes (cards)
-			canvas.nodes.forEach((node: any) => {
-				const cardElement = node.el;
+					// Show the custom context menu
+					this.showCustomContextMenu(event, node);
+				});
+			}
+		});
 
-				// Ensure the right-click event listener is not added multiple times
-				if (!cardElement.dataset.hasContextMenu) {
-					cardElement.dataset.hasContextMenu = "true";
-
-					// Add the right-click event listener
-					cardElement.addEventListener('contextmenu', (event: MouseEvent) => {
-						event.preventDefault();  // Prevent the default browser context menu
-
-						// Show the custom context menu
-						this.showCustomContextMenu(event, node);
-					});
-				}
-			});
-		}
 	}
 	// Function to show a custom context menu at the position of the mouse click
 	showCustomContextMenu(event: MouseEvent, node: any) {
