@@ -34,16 +34,7 @@ export default class MyPlugin extends Plugin {
 			}
 		});
 
-		this.registerEvent(this.app.workspace.on("canvas-style-menu:patched-canvas", () => {
-			refreshAllCanvasView(this.app);
-		}));
-		this.registerEvent(this.app.workspace.on("canvas-style-menu:patch-canvas-node", () => {
-			this.patchCanvasNode();
-			refreshAllCanvasView(this.app);
-		}));
-		this.registerEvent(this.app.workspace.on("canvas:selection-menu", (menu, canvas) => {
-			handleSelectionContextMenu(this, menu, canvas, menuConfig, subMenuConfig, toggleMenu);
-		}));
+
 		this.registerEvent(this.app.workspace.on("canvas:node-menu", (menu, node) => {
 			handleNodeContextMenu(this, menu, node, menuConfig, subMenuConfig, toggleMenu);
 		}));
