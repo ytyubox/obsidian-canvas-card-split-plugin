@@ -104,10 +104,57 @@ class SampleModal extends Modal {
 		const { contentEl } = this;
 		contentEl.empty();
 	}
-}
+	// Function to add right-click (context menu) event listener to canvas cards
+	addRightClickContextMenu() {
+		const activeLeaf = this.app.workspace.activeLeaf;
 
+		// Check if the current view is a Canvas view
+		if (activeLeaf && activeLeaf.view.getViewType() === 'canvas') {
+			const canvas = (activeLeaf.view as any).canvas;
 
-function notACanvas(): any {
-	new Notice('Did not detect canvas');
+			// Iterate through all canvas nodes (cards)
+			canvas.nodes.forEach((node: any) => {
+				const cardElement = node.el;
+
+				// Ensure the right-click event listener is not added multiple times
+				if (!cardElement.dataset.hasContextMenu) {
+					cardElement.dataset.hasContextMenu = "true";
+
+					// Add the right-click event listener
+					cardElement.addEventListener('contextmenu', (event: MouseEvent) => {
+						event.preventDefault();  // Prevent the default browser context menu
+
+						// Show the custom context menu
+						this.showCustomContextMenu(event, node);
+					});
+				}
+			});
+		}
+	}
+	// Function to show a custom context menu at the position of the mouse click
+	showCustomContextMenu(event: MouseEvent, node: any) {
+		const menu = new Menu();
+
+		// Add a custom action to the context menu
+		menu.addItem((item) => {
+			item.setTitle("Custom Action")
+				.setIcon("checkmark")
+				.onClick(() => {
+					new Notice(`Custom action for card ID: ${node.id}`);
+				});
+		});
+
+		// You can add more custom actions here if needed
+		menu.addItem((item) => {
+			item.setTitle("Another Action")
+				.setIcon("star")
+				.onClick(() => {
+					new Notice(`Another action for card ID: ${node.id}`);
+				});
+		});
+
+		// Show the custom menu at the mouse cursor's position
+		menu.showAtPosition({ x: event.pageX, y: event.pageY });
+	}
 }
 
