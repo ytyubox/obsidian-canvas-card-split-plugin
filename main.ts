@@ -26,7 +26,7 @@ export default class MyPlugin extends Plugin {
 			name: 'split select card into small cards',
 			callback: () => {
 				const canvasView = this.app.workspace.getActiveViewOfType(ItemView);
-				if (canvasView?.getViewType() !== 'canvas') return notACanvas();
+				if (canvasView?.getViewType() !== 'canvas') return new Notice('Did not detect canvas');
 				const canvas = (canvasView as any).canvas;
 				const selection: Array<any> = Array.from(canvas.selection);
 				console.log(selection);
@@ -103,31 +103,7 @@ class SampleModal extends Modal {
 	}
 }
 
-class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
-		super(app, plugin);
-		this.plugin = plugin;
-	}
-
-	display(): void {
-		const { containerEl } = this;
-
-		containerEl.empty();
-
-		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
-			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
-				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
-					await this.plugin.saveSettings();
-				}));
-	}
-}
 function notACanvas(): any {
 	new Notice('Did not detect canvas');
 }
