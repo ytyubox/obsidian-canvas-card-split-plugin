@@ -35,6 +35,18 @@ export default class MyPlugin extends Plugin {
 				console.log(selection);
 			}
 		});
+		this.registerEvent(
+			this.app.workspace.on("editor-menu", (menu) => {
+				menu.addItem((item) => {
+					item.setTitle(command.name)
+					.setIcon(command.icon)
+					.onClick(() => {
+						//@ts-ignore
+						this.app.commands.executeCommandById(command.id);
+					});
+				});
+			})
+		);
 	}
 
 	onunload() {
