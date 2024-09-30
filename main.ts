@@ -52,8 +52,8 @@ export default class MyPlugin extends Plugin {
 		if (canvasView?.getViewType() !== 'canvas') return new Notice('Did not detect canvas');
 		const canvas = (canvasView as any).canvas;
 
-
 		// Iterate through all canvas nodes (cards)
+		console.log(#LINE);
 		canvas.nodes.forEach((node: any) => {
 			const cardElement = node.el;
 
