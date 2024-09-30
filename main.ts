@@ -34,9 +34,9 @@ export default class MyPlugin extends Plugin {
 			name: 'split select card into small cards',
 			callback: () => {
 				const canvasView = this.app.workspace.getActiveViewOfType(ItemView);
-				if (canvasView?.getViewType() !== 'canvas') return;
+				if (canvasView?.getViewType() !== 'canvas') return notACanvas();
 				const canvas = (canvasView as any).canvas;
-				const selection: Array = Array.from(canvas.selection);
+				const selection: Array<any> = Array.from(canvas.selection);
 				console.log(selection);
 			}
 		});
@@ -136,3 +136,7 @@ class SampleSettingTab extends PluginSettingTab {
 				}));
 	}
 }
+function notACanvas(): any {
+	throw new Error('Function not implemented.');
+}
+
