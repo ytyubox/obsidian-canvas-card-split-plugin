@@ -33,7 +33,7 @@ export default class MyPlugin extends Plugin {
 				const selections: Array<any> = Array.from(canvas.selection);
 				const target = selections.first();
 				if (!target) return new Notice("No selected card");
-				if (isMarkdownList(target.list)) {
+				if (isMarkdownList(target.text) === true) {
 					console.log("Act")
 				} else console.log("No Act");
 			}
