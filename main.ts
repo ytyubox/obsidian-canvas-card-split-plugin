@@ -30,8 +30,9 @@ export default class MyPlugin extends Plugin {
 				if (canvasView?.getViewType() !== 'canvas') return new Notice('Did not detect canvas');
 				const canvas = (canvasView as any).canvas;
 				const selections: Array<any> = Array.from(canvas.selection);
-				
-				console.log(selection);
+				const target = selections.first;
+				if (!target) return new Notice("No selected card");
+				console.log(target);
 			}
 		});
 	}
