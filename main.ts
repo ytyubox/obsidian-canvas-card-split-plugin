@@ -58,6 +58,7 @@ export default class MyPlugin extends Plugin {
 		// Iterate through all canvas nodes (cards)
 		console.log("Act");
 		canvas.nodes.forEach((node: any) => {
+			console.log(node);
 			const cardElement = node.el;
 
 			// Ensure the right-click event listener is not added multiple times
