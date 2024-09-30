@@ -30,13 +30,13 @@ export default class MyPlugin extends Plugin {
 
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
-			id: 'open-sample-modal-simple',
-			name: 'Open sample modal (simple)',
+			id: 'split-card',
+			name: 'split select card into small cards',
 			callback: () => {
-				new SampleModal(this.app).open();
+				
 			}
 		});
-		
+
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
 			id: 'open-sample-modal-simple',
