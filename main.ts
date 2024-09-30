@@ -34,7 +34,8 @@ export default class MyPlugin extends Plugin {
 				const target = selections.first();
 				if (!target) return new Notice("No selected card");
 				if (isMarkdownList(target.text) === true) {
-					console.log("Act")
+					const tree = parseMarkdownListToTree(target.text);
+					console.log(JSON.stringify(tree, null, 2));
 				} else console.log("No Act");
 			}
 		});
@@ -63,3 +64,42 @@ function isMarkdownList(input: string): boolean {
 	// Check if the input matches either unordered or ordered list patterns
 	return unorderedListRegex.test(input) || orderedListRegex.test(input);
 }
+
+interface TreeNode {
+	text: string;
+	children: TreeNode[];
+}
+
+function parseMarkdownListToTree(markdown: string): TreeNode[] {
+	const lines = markdown.split("\n");
+	const root: TreeNode[] = [];
+	const stack: { level: number; nodes: TreeNode[] }[] = [{ level: -1, nodes: root }];
+
+	lines.forEach(line => {
+		// Ignore empty lines
+		if (line.trim().length === 0) return;
+
+		// Determine the current level (indentation level, 2 spaces or a tab)
+		const trimmedLine = line.trim();
+		const level = line.length - trimmedLine.length;
+
+		// Create a new node
+		const newNode: TreeNode = { text: trimmedLine.replace(/^[-*+]|\d+\.\s*/, '').trim(), children: [] };
+
+		// Adjust the stack to the current level
+		while (stack.length > 0 && stack[stack.length - 1].level >= level) {
+			stack.pop();
+		}
+
+		// Add the new node as a child of the current level node
+		const parentNode = stack[stack.length - 1].nodes;
+		parentNode.push(newNode);
+
+		// Push this node onto the stack as the most recent parent
+		stack.push({ level, nodes: newNode.children });
+	});
+
+	return root;
+}
+
+
