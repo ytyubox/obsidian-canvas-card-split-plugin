@@ -32,7 +32,7 @@ export default class MyPlugin extends Plugin {
 			}
 		});
 		this.registerEvent(
-			this.app.workspace.on("canvas:edge-menu", (menu, edge) => {
+			this.app.workspace.on("editor-menu", (menu) => {
 				menu.addItem((item) => {
 					item.setTitle("Yu")
 						.onClick(() => {
