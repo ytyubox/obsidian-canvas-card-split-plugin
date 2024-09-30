@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, ItemView } from 'obsidian';
 
 // Remember to rename these classes and interfaces!
 
@@ -33,7 +33,11 @@ export default class MyPlugin extends Plugin {
 			id: 'split-card',
 			name: 'split select card into small cards',
 			callback: () => {
-				
+				const canvasView = this.app.workspace.getActiveViewOfType(ItemView);
+				if (canvasView?.getViewType() !== 'canvas') return;
+				const canvas = (canvasView as any).canvas;
+				const selection: any = Array.from(canvas.selection);
+				console.Console(selection);
 			}
 		});
 
