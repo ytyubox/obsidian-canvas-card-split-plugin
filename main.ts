@@ -38,12 +38,11 @@ export default class MyPlugin extends Plugin {
 		this.registerEvent(
 			this.app.workspace.on("editor-menu", (menu) => {
 				menu.addItem((item) => {
-					item.setTitle(command.name)
-					.setIcon(command.icon)
-					.onClick(() => {
-						//@ts-ignore
-						this.app.commands.executeCommandById(command.id);
-					});
+					item.setTitle("Yu")
+						.onClick(() => {
+							//@ts-ignore
+							console.log("Act")
+						});
 				});
 			})
 		);
