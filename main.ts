@@ -1,4 +1,7 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, ItemView, Menu } from 'obsidian';
+import {
+	Edge,
+	App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, ItemView, Menu
+} from 'obsidian';
 
 // Remember to rename these classes and interfaces!
 
@@ -32,7 +35,7 @@ export default class MyPlugin extends Plugin {
 			}
 		});
 		this.registerEvent(
-			this.app.workspace.on("canvas:edge-menu", (menu: Menu, edge: Any) => {
+			this.app.workspace.on("canvas:edge-menu", (menu: Menu, edge: Edge) => {
 				menu.addItem((item) => {
 					item.setTitle("Yu")
 						.onClick(() => {
