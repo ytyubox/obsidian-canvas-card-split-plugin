@@ -36,8 +36,8 @@ export default class MyPlugin extends Plugin {
 				const canvasView = this.app.workspace.getActiveViewOfType(ItemView);
 				if (canvasView?.getViewType() !== 'canvas') return;
 				const canvas = (canvasView as any).canvas;
-				const selection: any = Array.from(canvas.selection);
-				console.Console(selection);
+				const selection: Array = Array.from(canvas.selection);
+				console.log(selection);
 			}
 		});
 
