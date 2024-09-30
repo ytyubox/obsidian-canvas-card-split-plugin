@@ -1,5 +1,4 @@
 import {
-	Edge,
 	App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, ItemView, Menu
 } from 'obsidian';
 
