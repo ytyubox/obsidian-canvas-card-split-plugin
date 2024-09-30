@@ -33,11 +33,6 @@ export default class MyPlugin extends Plugin {
 				console.log(selection);
 			}
 		});
-
-
-		this.registerEvent(this.app.workspace.on("canvas:node-menu", (menu, node) => {
-			handleNodeContextMenu(this, menu, node, menuConfig, subMenuConfig, toggleMenu);
-		}));
 	}
 
 	onunload() {
