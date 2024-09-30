@@ -34,8 +34,8 @@ export default class MyPlugin extends Plugin {
 				const target = selections.first();
 				if (!target) return new Notice("No selected card");
 				if (isMarkdownList(target.list)) {
-					console.log(:Act)
-				}
+					console.log("Act")
+				} else console.log("No Act");
 			}
 		});
 	}
