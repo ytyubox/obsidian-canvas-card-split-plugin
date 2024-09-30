@@ -18,7 +18,9 @@ export default class MyPlugin extends Plugin {
 
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		// Register an event listener that runs whenever the layout changes
+		console.log("Act");
 		this.registerEvent(this.app.workspace.on('layout-change', () => {
+			console.log("Act");
 			this.addRightClickContextMenu();
 		}));
 		// This adds a simple command that can be triggered anywhere
@@ -48,12 +50,13 @@ export default class MyPlugin extends Plugin {
 	}
 	// Function to add right-click (context menu) event listener to canvas cards
 	addRightClickContextMenu() {
+		console.log("Act");
 		const canvasView = this.app.workspace.getActiveViewOfType(ItemView);
 		if (canvasView?.getViewType() !== 'canvas') return new Notice('Did not detect canvas');
 		const canvas = (canvasView as any).canvas;
 
 		// Iterate through all canvas nodes (cards)
-		console.log(#LINE);
+		console.log("Act");
 		canvas.nodes.forEach((node: any) => {
 			const cardElement = node.el;
 
