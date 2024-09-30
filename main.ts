@@ -137,6 +137,6 @@ class SampleSettingTab extends PluginSettingTab {
 	}
 }
 function notACanvas(): any {
-	throw new Error('Function not implemented.');
+	new Notice('Did not detect canvas');
 }
 
