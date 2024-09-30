@@ -33,7 +33,7 @@ export default class MyPlugin extends Plugin {
 				const selections: Array<any> = Array.from(canvas.selection);
 				const target = selections.first();
 				if (!target) return new Notice("No selected card");
-				console.log(target.text);
+				console.log(isMarkdownList(target.text));
 			}
 		});
 	}
@@ -50,3 +50,19 @@ export default class MyPlugin extends Plugin {
 		await this.saveData(this.settings);
 	}
 }
+
+function isMarkdownList(input: string): boolean {
+	// Regex to match unordered markdown list (starting with -, *, + followed by a space)
+	const unorderedListRegex = /^\s*([-*+])\s+/;
+
+	// Regex to match ordered markdown list (starting with a number followed by a period and a space)
+	const orderedListRegex = /^\s*\d+\.\s+/;
+
+	// Check if the input matches either unordered or ordered list patterns
+	return unorderedListRegex.test(input) || orderedListRegex.test(input);
+}
+
+// Example usage:
+console.log(isMarkdownList("- Item")); // true (unordered list)
+console.log(isMarkdownList("1. Item")); // true (ordered list)
+console.log(isMarkdownList("This is a regular sentence.")); // false
