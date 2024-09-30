@@ -33,7 +33,9 @@ export default class MyPlugin extends Plugin {
 				const selections: Array<any> = Array.from(canvas.selection);
 				const target = selections.first();
 				if (!target) return new Notice("No selected card");
-				console.log(isMarkdownList(target.text));
+				if (isMarkdownList(target.list)) {
+					console.log(:Act)
+				}
 			}
 		});
 	}
@@ -61,8 +63,3 @@ function isMarkdownList(input: string): boolean {
 	// Check if the input matches either unordered or ordered list patterns
 	return unorderedListRegex.test(input) || orderedListRegex.test(input);
 }
-
-// Example usage:
-console.log(isMarkdownList("- Item")); // true (unordered list)
-console.log(isMarkdownList("1. Item")); // true (ordered list)
-console.log(isMarkdownList("This is a regular sentence.")); // false
