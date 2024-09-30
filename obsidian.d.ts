@@ -1,5 +1,5 @@
-import 'obsidian';
-import { MarkdownView, TFile } from 'obsidian';
+
+import { MarkdownView, TFile, Component } from 'obsidian';
 import { CanvasData } from 'obsidian/canvas';
 
 export interface CanvasNodeUnknownData {
