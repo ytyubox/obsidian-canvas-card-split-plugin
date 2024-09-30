@@ -49,11 +49,17 @@ export default class MyPlugin extends Plugin {
 	}
 	// Function to add right-click (context menu) event listener to canvas cards
 	addRightClickContextMenu() {
-		const activeLeaf = this.app.workspace.activeLeaf;
+		const canvasView = this.app.workspace.getActiveViewOfType(ItemView);
+		if (canvasView?.getViewType() !== 'canvas') return new Notice('Did not detect canvas');
+		const canvas = (canvasView as any).canvas;
+		const selection: Array<any> = Array.from(canvas.selection);
+		console.log(selection);
+
+
 
 		// Check if the current view is a Canvas view
 		if (activeLeaf && activeLeaf.view.getViewType() === 'canvas') {
-			const canvas = (activeLeaf.view as any).canvas;
+
 
 			// Iterate through all canvas nodes (cards)
 			canvas.nodes.forEach((node: any) => {
