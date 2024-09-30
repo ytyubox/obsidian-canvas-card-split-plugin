@@ -103,3 +103,32 @@ function parseMarkdownListToTree(markdown: string): TreeNode[] {
 }
 
 
+export const createChildFileNode = (canvas: any, parentNode: any, file: TFile, path: string, y: number) => {
+	const node = addNode(
+		canvas, random(16),
+		{
+			x: parentNode.x + parentNode.width + 200,
+			y: y,
+			width: parentNode.width,
+			height: parentNode.height * 0.6,
+
+			type: 'file',
+			content: file.path,
+			subpath: path,
+		}
+	);
+
+	addEdge(canvas, random(16), {
+		fromOrTo: "from",
+		side: "right",
+		node: parentNode
+	}, {
+		fromOrTo: "to",
+		side: "left",
+		node: <CanvasNodeData>node
+	});
+
+	canvas.requestSave();
+
+	return node;
+};
