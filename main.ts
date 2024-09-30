@@ -1,6 +1,7 @@
 import {
 	App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, ItemView, Menu
 } from 'obsidian';
+import { text } from 'stream/consumers';
 
 // Remember to rename these classes and interfaces!
 
@@ -30,9 +31,9 @@ export default class MyPlugin extends Plugin {
 				if (canvasView?.getViewType() !== 'canvas') return new Notice('Did not detect canvas');
 				const canvas = (canvasView as any).canvas;
 				const selections: Array<any> = Array.from(canvas.selection);
-				const target = selections.first;
+				const target = selections.first();
 				if (!target) return new Notice("No selected card");
-				console.log(target);
+				console.log(target.text);
 			}
 		});
 	}
